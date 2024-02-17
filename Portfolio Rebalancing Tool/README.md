@@ -1,4 +1,4 @@
-# portfolio-rebalancing-tool
+# Portfolio-Rebalancing-Tool
 
 # Getting Started
 Get this project set up locally
