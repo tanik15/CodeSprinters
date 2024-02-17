@@ -1,9 +1,12 @@
 // import 'package:fl_chart/fl_chart.dart';
 import 'package:candlesticks/candlesticks.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:portfolio/data/chart.dart';
+import 'package:portfolio/core/bloc/home_screen_bloc.dart';
 import 'package:portfolio/data/line_chart.dart';
+import 'package:portfolio/screens/mutual_fund.dart';
+import 'package:portfolio/screens/quick_buy.dart';
 import 'package:portfolio/widget/carousal.dart';
 import 'package:portfolio/widget/small_carousal.dart';
 
@@ -16,32 +19,162 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController controller = ScrollController();
-  final candle =  Candle(date: DateTime.now(), open: 1780.36, high: 1873.93, low: 1755.34, close: 1848.56, volume: 0);
-
+  final candle = Candle(
+      date: DateTime.now(),
+      open: 1780.36,
+      high: 1873.93,
+      low: 1755.34,
+      close: 1848.56,
+      volume: 0);
+  int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        automaticallyImplyLeading: false,
-        title: const Text("Wealth Wise"),
+      // appBar: AppBar(
+      //   forceMaterialTransparency: true,
+      //   automaticallyImplyLeading: false,
+      //   title: const Text("Wealth Wise"),
+      // ),
+      body: (currentPageIndex == 0)
+          ? HomeScreenWidget(size: size)
+          : (currentPageIndex == 2)
+              ? const QuickBuy()
+              : const MutualFundScreen(),
+      bottomNavigationBar: NavigationBar(
+        height: 65,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        indicatorColor: Colors.white,
+        selectedIndex: currentPageIndex,
+        destinations: const <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 12.0),
+            child: NavigationDestination(
+              selectedIcon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+                color: Colors.blueGrey,
+              ),
+              label: 'Home',
+            ),
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.group),
+            icon: Icon(
+              Icons.portable_wifi_off_rounded,
+              color: Colors.blueGrey,
+            ),
+            label: 'Mutual Fund',
+          ),
+          NavigationDestination(
+            selectedIcon: Badge(child: Icon(Icons.home)),
+            icon: Icon(
+              Icons.electric_bike,
+              color: Colors.blueGrey,
+            ),
+            label: 'Quick Buy',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.person),
+            icon: Icon(
+              Icons.person,
+              color: Colors.blueGrey,
+            ),
+            label: 'Profile',
+          ),
+        ],
       ),
-      body: SingleChildScrollView(
+    );
+  }
+}
+
+class HomeScreenWidget extends StatefulWidget {
+  const HomeScreenWidget({
+    super.key,
+    required this.size,
+  });
+
+  final Size size;
+
+  @override
+  State<HomeScreenWidget> createState() => _HomeScreenWidgetState();
+}
+
+class _HomeScreenWidgetState extends State<HomeScreenWidget> {
+
+bool isnewNews = false;
+
+  void timeer()async{
+    setState(() {
+      isnewNews = true;
+    });
+    await Future.delayed(const Duration(seconds: 3));
+    setState(() {
+      isnewNews = false;
+    });
+  }
+
+  @override
+  void initState() {
+    timeer();
+    BlocProvider.of<HomeScreenBloc>(context).add(GetTopGainers());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           children: [
+            if(!isnewNews)
+            AppBar(
+              forceMaterialTransparency: true,
+              automaticallyImplyLeading: false,
+              title: const Text("Wealth Wise"),
+            ),
+            if(isnewNews)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+              child: Material(
+                borderRadius: const BorderRadius.all(Radius.circular(13)),
+                elevation: 4,
+                child: Container(
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                      color: Color.fromRGBO(29, 32, 34, 0.733),
+                      borderRadius: BorderRadius.all(Radius.circular(13))),
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+                    child: Center(
+                        child: Text(
+                            "You have received message from",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(color: Colors.white))),
+                  ),
+                ),
+              ),
+            ),
             const Carousal(),
             const SizedBox(
                 height: 40, width: double.infinity, child: SmallCaruosal()),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     height: 120,
-                    width: size.width * 0.42,
+                    width: widget.size.width * 0.42,
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -56,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Container(
                     height: 120,
-                    width: size.width * 0.42,
+                    width: widget.size.width * 0.42,
                     decoration: BoxDecoration(
                       // border: Border.all(),
                       boxShadow: [
@@ -73,17 +206,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            GridViewWidget(size: size, title: "Top Gainers"),
+            GridViewWidget(size: widget.size, title: "Top Gainers"),
             GridViewWidget(
-              size: size,
+              size: widget.size,
               title: "Top Losers",
             ),
             GridViewWidget(
-              size: size,
+              size: widget.size,
               title: "Highest Price",
             ),
             GridViewWidget(
-              size: size,
+              size: widget.size,
               title: "Lowest Price",
             ),
           ],
@@ -173,7 +306,6 @@ class GridViewWidget extends StatelessWidget {
                                 // child: LineChartSample2(),
                               ),
                             ),
-
                           ],
                         ),
                       ),
@@ -182,13 +314,13 @@ class GridViewWidget extends StatelessWidget {
               ],
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(15.0),
-            child: SizedBox(
-              child: LineChartSample2(),
+
+          const SizedBox(
+            height: 300,
+            child: LineChartt(
+              isShowingMainData: true,
             ),
           ),
-          const SizedBox(height: 300,child: LineChartt(isShowingMainData: true,),),
           // SizedBox(
           //   height: 250,
           //   child: Candlesticks(

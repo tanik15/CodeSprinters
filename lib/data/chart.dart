@@ -1,10 +1,13 @@
 // import 'package:fl_chart_app/presentation/resources/app_resources.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/colors/colors.dart';
+import 'package:portfolio/core/bloc/home_screen_bloc.dart';
 
 class LineChartSample2 extends StatefulWidget {
-  const LineChartSample2({super.key});
+  const LineChartSample2({super.key, required this.list});
+  final List<FlSpot> list;
 
   @override
   State<LineChartSample2> createState() => _LineChartSample2State();
@@ -17,45 +20,52 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1.60,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              right: 6,
-              left: 0,
-              top: 12,
-              bottom: 12,
-            ),
-            child: LineChart(
-              showAvg ? avgData() : mainData(),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 10,
-          left: -4,
-          child: SizedBox(
-            width: 40,
-            height: 34,
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  showAvg = !showAvg;
-                });
-              },
-              child: Text(
-                'avg',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: showAvg ? Colors.white.withOpacity(0.5) : Colors.white,
+    return BlocBuilder<HomeScreenBloc, HomeScreenState>(
+      builder: (context, state) {
+        // if(state is )
+        return Stack(
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 1.60,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  right: 6,
+                  left: 0,
+                  top: 12,
+                  bottom: 12,
+                ),
+                child: LineChart(
+                  showAvg ? avgData() : mainData(widget.list),
                 ),
               ),
             ),
-          ),
-        ),
-      ],
+            Positioned(
+              bottom: 10,
+              left: -4,
+              child: SizedBox(
+                width: 40,
+                height: 34,
+                child: TextButton(
+                  onPressed: () {
+                    setState(() {
+                      showAvg = !showAvg;
+                    });
+                  },
+                  child: Text(
+                    'avg',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: showAvg
+                          ? Colors.white.withOpacity(0.5)
+                          : Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -120,11 +130,10 @@ class _LineChartSample2State extends State<LineChartSample2> {
       default:
         return Container();
     }
-
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
-  LineChartData mainData() {
+  LineChartData mainData(List<FlSpot> list) {
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -134,13 +143,13 @@ class _LineChartSample2State extends State<LineChartSample2> {
         getDrawingHorizontalLine: (value) {
           return FlLine(
             color: Colors.white10,
-            strokeWidth: 1,
+            strokeWidth: 0.1,
           );
         },
         getDrawingVerticalLine: (value) {
           return FlLine(
             color: Colors.white10,
-            strokeWidth: 1,
+            strokeWidth: 0.1,
           );
         },
       ),
@@ -170,7 +179,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
         ),
       ),
       borderData: FlBorderData(
-        show: true,
+        show: false,
         border: Border.all(color: const Color(0xff37434d)),
       ),
       minX: 0,
@@ -179,30 +188,12 @@ class _LineChartSample2State extends State<LineChartSample2> {
       maxY: 10,
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(2, 2),
-            FlSpot(4, 5),
-            FlSpot(6, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9, 3),
-            FlSpot(10, 4),
-            FlSpot(12, 7),
-            FlSpot(14, 2),
-            FlSpot(16, 5),
-            FlSpot(18, 8),
-            FlSpot(20, 4),
-            FlSpot(22, 3),
-            FlSpot(24, 9),
-            FlSpot(26, 4),
-            FlSpot(28, 6),
-            FlSpot(30, 4),
-          ],
+          spots: list,
           isCurved: true,
           gradient: LinearGradient(
             colors: gradientColors,
           ),
-          barWidth: 5,
+          barWidth: 2,
           isStrokeCapRound: true,
           dotData: FlDotData(
             show: false,
