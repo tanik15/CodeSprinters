@@ -1,7 +1,3 @@
-Sure, here's the formatted README file suitable for GitHub:
-
----
-
 # Portfolio Management System
 
 ## Introduction
