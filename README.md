@@ -47,6 +47,29 @@ Follow these steps to use the project locally:
 - Sneha Chopra
 - Amitesh Sawarkar
 
+### App - 
+
+![Portfolio Management System7]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/4O38H1708228674.png))
+![Portfolio Management System8]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/4O38H1708228674.png))
+![Portfolio Management System9]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/4O38H1708228674.png))
+![Portfolio Management System10]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/4O38H1708228674.png))
+![Portfolio Management System11]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/4O38H1708228674.png))
+![Portfolio Management System12]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/4O38H1708228674.png))
+![Portfolio Management System13]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/4O38H1708228674.png))
+
+
+
+### Website - 
+
+![Portfolio Management System1]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/4O38H1708228674.png))
+![Portfolio Management System2]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/W4N1K1708228724.png))
+![Portfolio Management System3]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/KK0Fp1708228744.png))
+![Portfolio Management System4]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/9X5vO1708228763.png))
+![Portfolio Management System5]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/FZMcP1708228779.png))
+![Portfolio Management System6]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/XKyV61708228795.png))
+
+
+
 ### Would Like to Contribute?
 
 Feel free to contribute by sending a pull request. We will review it and, if possible, merge it into the codebase 😃.
