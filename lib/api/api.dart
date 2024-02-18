@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart'as http;
 
+var url = "https://a8bc-2402-3a80-42b0-18c-e4ec-d86-47fa-b45b.ngrok-free.app";
+
 Future<dynamic> getTopGainers() async {
   // Map<String, String> header = <String, String>{
   //     "Authorization": "",
@@ -46,7 +48,7 @@ Future<dynamic> getStockDetails(String stockName) async {
  try {
   print("stockdetails");
    final response = await http.get(
-    Uri.parse('https://909f-14-139-125-227.ngrok-free.app/api/v1/apple'),
+    Uri.parse('$url/api/v1/apple'),
     // headers: header,
   );
   final res= jsonDecode(response.body);
@@ -56,3 +58,40 @@ Future<dynamic> getStockDetails(String stockName) async {
    return;
  }
 }
+
+Future<dynamic> getStockList() async {
+  // Map<String, String> header = <String, String>{
+  //     "Authorization": "",
+  // };
+ try {
+  print("stockdetails");
+   final response = await http.get(
+    Uri.parse('$url/api/v1/company'),
+    // headers: header,
+  );
+  final res= jsonDecode(response.body);
+  // print(res);
+  return res;
+ } catch (e) {
+   return;
+ }
+}
+
+
+Future<dynamic> getCarousalDetails() async {
+  // Map<String, String> header = <String, String>{
+  //     "Authorization": "",
+  // };
+ try {
+   final response = await http.get(
+    Uri.parse('$url/api/v1/carousel'),
+    // headers: header,
+  );
+  final res= jsonDecode(response.body);
+  print(res);
+  return res;
+ } catch (e) {
+   return;
+ }
+}
+

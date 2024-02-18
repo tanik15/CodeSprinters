@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/api/api.dart';
+import 'package:portfolio/colors/colors.dart';
 
 class Carousal extends StatefulWidget {
   const Carousal({super.key});
@@ -9,8 +11,19 @@ class Carousal extends StatefulWidget {
 }
 
 class _CarousalState extends State<Carousal> {
+  List res = [];
+
+  void getCarousel() async {
+    final respnse = await getCarousalDetails();
+    print(respnse);
+    setState(() {
+      res = respnse;
+    });
+  }
+
   @override
   void initState() {
+    getCarousel();
     // BlocProvider.of<CarousalBloc>(context).add(GetCarousal());
     super.initState();
   }
@@ -46,104 +59,108 @@ class _CarousalState extends State<Carousal> {
         autoPlayCurve: Curves.fastOutSlowIn,
       ),
       items: [
-        // for (int i = 0; i < state.getMarks.length; i++)
-        for (int i = 0; i < 2; i++)
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 5.0,
-              vertical: 18,
-            ),
-            child: GestureDetector(
-              onTap: () {
-                // alertboxx(
-                //   context,
-                //   state.getMarks[i]['description'],
-                //   state.getMarks[i]['title'],
-                //   state.getMarks[i]['url'],
-                // );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade900,
-                      // : Colors.grey.shade900,
-                      blurRadius: 10,
-                      offset: const Offset(2, 3),
-                    )
-                  ],
-                  borderRadius: BorderRadius.circular(20),
-                  // color: const Color.fromRGBO(163, 216, 255, 1),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                right: 12.0, top: 15, bottom: 10, left: 15),
-                            child: Text("Tanisha",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(fontWeight: FontWeight.bold)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                right: 12.0, top: 3, bottom: 9, left: 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("DataScience Girl",
-                                    maxLines: 2,
-                                    //  (state.getMarks[i]['title']
-                                    // .length >
-                                    //     20)
-                                    // ? 2
-                                    // : 3
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium),
-                                Text("knowmore",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                            decoration:
-                                                TextDecoration.underline))
-                              ],
+        for (int i = 0; i < res.length; i++)
+          for (int i = 0; i < 2; i++)
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 5.0,
+                vertical: 18,
+              ),
+              child: GestureDetector(
+                onTap: () {
+                  // alertboxx(
+                  //   context,
+                  //   state.getMarks[i]['description'],
+                  //   state.getMarks[i]['title'],
+                  //   state.getMarks[i]['url'],
+                  // );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade900,
+                        blurRadius: 10,
+                        offset: const Offset(2, 3),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(20),
+                    // color: const Color.fromRGBO(163, 216, 255, 1),
+                    color: lightColor,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 12.0, top: 15, bottom: 10, left: 15),
+                              child: Text(res[i]['title'],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  right: 12.0, top: 3, bottom: 9, left: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(res[i]['description'],
+                                      maxLines: 2,
+                                      //  (state.getMarks[i]['title']
+                                      // .length >
+                                      //     20)
+                                      // ? 2
+                                      // : 3
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(color: Colors.white)),
+                                  // Text("knowmore",
+                                  //     style: Theme.of(context)
+                                  //         .textTheme
+                                  //         .bodyMedium!
+                                  //         .copyWith(
+                                  //           color: Colors.white,
+                                  //             decoration:
+                                  //                 TextDecoration.underline))
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20.0),
-                          child: Image.network(
-                            "https://media.istockphoto.com/id/1307189136/photo/gateway-of-india-mumbai-maharashtra-monument-landmark-famous-place-magnificent-view-without.jpg?s=612x612&w=0&k=20&c=gGzzkXY5bAVbRbokzrjvkt7Ve-Z3yzSVN04NaMqyBB8=",
-                               errorBuilder: (BuildContext context, Object error,
-                                StackTrace? stackTrace) {
-                              return const Icon(
-                                  Icons.image_not_supported_outlined);
-                            },
-                            fit: BoxFit.cover,
-                            // width: 115,
-                            width: size.width * 0.32,
-                          )),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20.0),
+                            child: Image.network(
+                              res[i]['img'],
+                              errorBuilder: (BuildContext context, Object error,
+                                  StackTrace? stackTrace) {
+                                return const Icon(
+                                    Icons.image_not_supported_outlined);
+                              },
+                              fit: BoxFit.cover,
+                              // width: 115,
+                              width: size.width * 0.32,
+                            )),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
       ],
     );
     // }

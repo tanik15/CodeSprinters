@@ -5,9 +5,11 @@ import 'package:portfolio/colors/colors.dart';
 import 'package:portfolio/data/chart.dart';
 
 class BuyScreen extends StatefulWidget {
-  const BuyScreen({super.key, required this.stockName});
+  const BuyScreen(
+      {super.key, required this.stockName, required this.description});
 
   final String stockName;
+  final String description;
 
   @override
   State<BuyScreen> createState() => _BuyScreenState();
@@ -68,6 +70,56 @@ class _BuyScreenState extends State<BuyScreen> {
     super.dispose();
   }
 
+  void alertbox(context, String num, String name) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.green,
+          title: Text(
+            "Successfully Bought $name $num Stocks",
+            style: const TextStyle(fontSize: 20),
+          ),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  "Okay",
+                  style: TextStyle(color: Colors.black),
+                ))
+          ],
+        );
+      },
+    );
+  }
+
+  void sellDialogBox(context, String num, String name) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text(
+            "Successfully Sold $name $num Stocks",
+            style: const TextStyle(fontSize: 20, color: Colors.red),
+          ),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text(
+                  "Okay",
+                  style: TextStyle(color: Colors.black),
+                ))
+          ],
+        );
+      },
+    );
+  }
+
   final _numberOfStocksController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -98,6 +150,10 @@ class _BuyScreenState extends State<BuyScreen> {
                     child: LineChartSample2(list: listt),
                   ),
                 ),
+              if (isLoading)
+                const CircularProgressIndicator(
+                  color: Colors.white,
+                ),
               const Padding(
                 padding: EdgeInsets.only(left: 20.0),
                 child: Align(
@@ -108,10 +164,9 @@ class _BuyScreenState extends State<BuyScreen> {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     )),
               ),
-              const Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                    "The Delhi High Court has refused to entertain a petition seeking a direction against a private zoo and an elephant camp situated inside the Reliance Complex in Jamnagar, Gujarat. The petition filed by advocate Rahul Narula sought a direction not to hold Anant Ambani and Radhika Merchants wedding events by displaying or exhibiting animals in their possession."),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(widget.description),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -138,10 +193,12 @@ class _BuyScreenState extends State<BuyScreen> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
                               ),
-                              child: const Center(
+                              child: Center(
                                 child: Text(
-                                  "Current change",
-                                  style: TextStyle(
+                                  (i == 0)
+                                      ? "Overall change"
+                                      : "Current Change",
+                                  style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400),
                                 ),
@@ -211,38 +268,77 @@ class _BuyScreenState extends State<BuyScreen> {
                 height: 10,
               ),
               Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20.0),
+                child: TextField(
+                  controller: _numberOfStocksController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Number of Stocks',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Number of Stocks",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    SizedBox(
+                      width: 140,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 2,
+                            shadowColor: Colors.green.shade700,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            backgroundColor: Colors.green),
+                        onPressed: () {
+                          String numberOfStocks =
+                              _numberOfStocksController.text;
+                          if (numberOfStocks.isNotEmpty) {
+                            alertbox(context, _numberOfStocksController.text,
+                                widget.stockName);
+                          }
+                        },
+                        child: const Text(
+                          'Buy',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                     ),
                     SizedBox(
-                      width: 50,
-                      child: TextField(
-                        controller: _numberOfStocksController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          labelText: '  ',
+                      width: 140,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shadowColor: Colors.red.withOpacity(0.9),
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            backgroundColor: Colors.red),
+                        onPressed: () {
+                          String numberOfStocks =
+                              _numberOfStocksController.text;
+                          if (numberOfStocks.isNotEmpty) {
+                            sellDialogBox(
+                                context,
+                                _numberOfStocksController.text,
+                                widget.stockName);
+                          }
+                        },
+                        child: const Text(
+                          'Sell',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  String numberOfStocks = _numberOfStocksController.text;
-                  if (numberOfStocks.isNotEmpty) {
-                    // Handle the number of stocks input
-                  }
-                },
-                child: const Text('Submit'),
-              ),
+              const SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),

@@ -16,6 +16,8 @@ final List<CandleData> _data = [
   CandleData(timestamp: 3, open: 70, close: 140, volume: 50),
 ];
 
+
+
 class _MutualFundScreenState extends State<MutualFundScreen> {
   late List<ChartSampleData> chartData;
   List<ChartSampleData> abc = [
@@ -36,27 +38,43 @@ class _MutualFundScreenState extends State<MutualFundScreen> {
         automaticallyImplyLeading: false,
         title: const Text("Wealth Wise"),
       ),
-      SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Center(
-            child: Container(
-                child: SfCartesianChart(
-                    primaryXAxis: DateTimeAxis(
-                      majorGridLines: MajorGridLines(color: Colors.grey[800]),
-                    ),
-                    series: <CartesianSeries>[
-                  CandleSeries<ChartSampleData, DateTime>(
-                    dataSource: abc,
-                    xValueMapper: (ChartSampleData data, _) => data.time,
-                    lowValueMapper: (ChartSampleData data, _) => data.low,
-                    highValueMapper: (ChartSampleData data, _) => data.high,
-                    openValueMapper: (ChartSampleData data, _) => data.open,
-                    closeValueMapper: (ChartSampleData data, _) => data.close,
-                    borderWidth: 1,
-                    name: 'Gold',
-                  ),
-                ])),
-          ))
+      // SizedBox(
+      //   height: 300,
+      //   child: WebviewScaffold(
+      //     url: 'https://in.tradingview.com/', // Put your URL here
+      //     withZoom: true,
+      //     withJavascript: true,
+      //     hidden: true,
+      //     initialChild: Container(
+      //       color: Colors.blueAccent,
+      //       child: const Center(
+      //         child: CircularProgressIndicator(),
+      //       ),
+      //     ),
+      //   ),
+      // ),
+
+      // SingleChildScrollView(
+      //     scrollDirection: Axis.horizontal,
+      //     child: Center(
+      //       child: Container(
+      //           child: SfCartesianChart(
+      //               primaryXAxis: DateTimeAxis(
+      //                 majorGridLines: MajorGridLines(color: Colors.grey[800]),
+      //               ),
+      //               series: <CartesianSeries>[
+      //             CandleSeries<ChartSampleData, DateTime>(
+      //               dataSource: abc,
+      //               xValueMapper: (ChartSampleData data, _) => data.time,
+      //               lowValueMapper: (ChartSampleData data, _) => data.low,
+      //               highValueMapper: (ChartSampleData data, _) => data.high,
+      //               openValueMapper: (ChartSampleData data, _) => data.open,
+      //               closeValueMapper: (ChartSampleData data, _) => data.close,
+      //               borderWidth: 1,
+      //               name: 'Gold',
+      //             ),
+      //           ])),
+      //     ))
     ]);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/colors/colors.dart';
 
 class SmallCaruosal extends StatefulWidget {
   const SmallCaruosal({super.key});
@@ -15,26 +16,11 @@ class _SmallCaruosalState extends State<SmallCaruosal> {
     super.initState();
   }
 
+  List list = ['Sensex', 'Nifty 50', "Bank Nifty"];
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    // return BlocBuilder<SmallCaruosalBloc, SmallCaruosalState>(
-    //   builder: (context, state) {
-    //     if (state is SmallCaruosalLoadingState) {
-    //       return Center(
-    //         child: LoadingAnimationWidget.hexagonDots(
-    //           color: const Color.fromARGB(255, 51, 152, 224),
-    //           size: 70,
-    //         ),
-    //       );
-    //     }
-    // if (state is SmallCaruosalLoadedState) {
-    //   if (state.getMarks.isEmpty) {
-    //     return Text(
-    //       "No Carousel yet",
-    //       style: Theme.of(context).textTheme.titleMedium,
-    //     );
-    //   }
     return SizedBox(
       height: 50,
       child: CarouselSlider(
@@ -49,17 +35,42 @@ class _SmallCaruosalState extends State<SmallCaruosal> {
         ),
         items: [
           // for (int i = 0; i < state.getMarks.length; i++)
-          for (int i = 0; i < 2; i++)
-           Padding(
+          for (int i = 0; i < 3; i++)
+            Padding(
               padding: const EdgeInsets.only(left: 4.0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-              color: Colors.grey.withOpacity(0.5),
+                  color: lightColor,
                 ),
                 height: 10,
                 width: 120,
-                child: const Center(child: Text("Sensex")),
+                child: Center(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      list[i],
+                      style: TextStyle(
+                          color: (i != 1) ? Colors.green : Colors.red),
+                    ),
+                    const SizedBox(
+                      width: 3,
+                    ),
+                    if(i != 1)  
+                    const Icon(
+                      Icons.arrow_upward,
+                      color: Colors.green,
+                      size: 15,
+                    ),
+                    if(i == 1)  
+                    const Icon(
+                      Icons.arrow_downward,
+                      color: Colors.red,
+                      size: 15,
+                    )
+                  ],
+                )),
               ),
             )
         ],
