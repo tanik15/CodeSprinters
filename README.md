@@ -17,7 +17,7 @@ For detailed guidance on Flutter development, refer to the [online documentation
 
 Follow these steps to use the project locally:
 
-1. Clone the repository: `git clone https://github.com/bpagare6/Portfolio-Management-System.git`
+1. Clone the repository: `git clone https://github.com/tanik15/CodeSprinters.git`
 2. Create a virtual environment inside the Portfolio-Management-System folder.
 3. Activate the virtual environment.
 4. Download the requirements: `pip install -r requirements.txt`
