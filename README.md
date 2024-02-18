@@ -61,12 +61,19 @@ Follow these steps to use the project locally:
 
 ### Website - 
 
-![Portfolio Management System1]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/4O38H1708228674.png))
-![Portfolio Management System2]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/W4N1K1708228724.png))
-![Portfolio Management System3]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/KK0Fp1708228744.png))
-![Portfolio Management System4]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/9X5vO1708228763.png))
-![Portfolio Management System5]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/FZMcP1708228779.png))
-![Portfolio Management System6]([https://example.com/portfolio_logo.png](https://www.imghippo.com/i/XKyV61708228795.png))
+(https://github.com/tanik15/CodeSprinters/blob/master/Screenshot%202024-02-18%20091833.png
+
+https://github.com/tanik15/CodeSprinters/blob/master/Screenshot%202024-02-18%20091904.png
+
+https://github.com/tanik15/CodeSprinters/blob/master/Screenshot%202024-02-18%20091926.png
+
+https://github.com/tanik15/CodeSprinters/blob/master/Screenshot%202024-02-18%20091954.png
+
+https://github.com/tanik15/CodeSprinters/blob/master/Screenshot%202024-02-18%20092023.png
+
+https://github.com/tanik15/CodeSprinters/blob/master/Screenshot%202024-02-18%20092052.png
+
+)
 
 
 
