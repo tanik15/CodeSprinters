@@ -50,6 +50,8 @@ Follow these steps to use the project locally:
 ![image](https://github.com/tanik15/CodeSprinters/assets/123076729/488fd174-58b3-444d-89dc-1e52b44da04d)
 ![image](https://github.com/tanik15/CodeSprinters/assets/123076729/887f8ece-e073-4fb7-bc2c-47e9c1654904)
 ![image](https://github.com/tanik15/CodeSprinters/assets/123076729/27a7d409-bc53-482b-956d-3ef912b9a540)
+![9](https://github.com/tanik15/CodeSprinters/assets/123076729/3a3d9e7d-b24b-43bd-8f52-eaddc31470e6)
+
 
 ### Website - 
 ![image](https://github.com/tanik15/CodeSprinters/assets/123076729/4d01508d-fbe8-4969-a3cd-d8e2b5cd3668)
